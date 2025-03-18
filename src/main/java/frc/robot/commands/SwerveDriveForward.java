@@ -10,7 +10,7 @@ public class SwerveDriveForward extends Command{
     private double speed;
 
     public SwerveDriveForward(double speed) {
-        swerve = new SwerveDrive();
+        swerve = SwerveDrive.getInstance();
 
         this.speed = speed;
 

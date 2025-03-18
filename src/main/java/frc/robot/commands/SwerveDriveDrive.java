@@ -17,7 +17,7 @@ public class SwerveDriveDrive extends Command{
     private final DoubleSupplier rotation;
 
     public SwerveDriveDrive(XboxController driverController) {
-        swerve = new SwerveDrive();
+        swerve = SwerveDrive.getInstance();
 
         speed = () -> {
             double x = MathUtil.applyDeadband(driverController.getLeftX(), 0.05);

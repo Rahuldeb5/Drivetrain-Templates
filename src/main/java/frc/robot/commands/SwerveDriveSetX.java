@@ -7,12 +7,12 @@ public class SwerveDriveSetX extends Command{
     private final SwerveDrive swerve;
 
     public SwerveDriveSetX() {
-        swerve = new SwerveDrive();
+        swerve = SwerveDrive.getInstance();
         addRequirements(swerve);
     }
 
     @Override
     public void execute() {
-        swerve.setX();
+        swerve.setXMode();
     }
 }

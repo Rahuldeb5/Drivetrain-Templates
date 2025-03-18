@@ -16,7 +16,7 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import frc.robot.Configs;
-import frc.robot.Constants.Swerve.Drive;
+import frc.robot.Constants.Swerve;
 
 public class SwerveModule {
     private final TalonFX driveMotor;
@@ -32,7 +32,7 @@ public class SwerveModule {
         turnMotor = new SparkMax(turnMotorId, MotorType.kBrushless);
 
         turnEncoder = new CANcoder(turnEncoderId, "*");
-        turnController = new PIDController(Drive.kP, Drive.kI, Drive.kD);
+        turnController = new PIDController(Swerve.Turn.kP, Swerve.Turn.kI, Swerve.Turn.kD);
         turnController.enableContinuousInput(-Math.PI, Math.PI);
 
         this.angleOffset = angleOffset;
@@ -53,6 +53,10 @@ public class SwerveModule {
         return driveMotor.getPosition().getValueAsDouble();
     }
 
+    public double getVelocity() {
+        return driveMotor.getVelocity().getValueAsDouble();
+    }
+
     public Rotation2d getAngle() {
         return Rotation2d.fromRotations(turnEncoder.getPosition().getValueAsDouble()).minus(angleOffset);
     }
@@ -61,10 +65,19 @@ public class SwerveModule {
         return new SwerveModulePosition(getPosition(), getAngle());
     }
 
+    public SwerveModuleState getState() {
+        return new SwerveModuleState(getVelocity(), getAngle());
+    }
+
     public void setDesiredState(SwerveModuleState desiredState) {
         desiredState.optimize(getAngle());
         desiredState.cosineScale(getAngle());
 
+        // if(desiredState.speedMetersPerSecond < 0.05) {
+        //     driveMotor.setControl(new VelocityVoltage(0));
+        //     turnMotor.setVoltage(0);
+        // }
+        
         driveMotor.setControl(new VelocityVoltage(desiredState.speedMetersPerSecond).withEnableFOC(true));
         turnMotor.setVoltage(turnController.calculate(getAngle().getRadians(), desiredState.angle.getRadians()));
     }

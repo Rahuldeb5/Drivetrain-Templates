@@ -16,6 +16,9 @@ public final class Configs {
             turnConfig
                 .idleMode(IdleMode.kBrake)
                 .smartCurrentLimit(20);
+                // .smartCurrentLimit(200)
+                // .inverted(true)
+                // .openLoopRampRate(0.25)
         }
     }
 
@@ -24,7 +27,8 @@ public final class Configs {
         
         static {
             driveConfig.MotorOutput.NeutralMode = NeutralModeValue.Brake;
-            driveConfig.Slot0.withKP(Drive.kP).withKI(Drive.kI).withKD(Drive.kD);
+            driveConfig.Slot0.withKP(Drive.kP).withKI(Drive.kI).withKD(Drive.kD)
+                .withKS(Drive.kS).withKV(Drive.kV).withKA(Drive.kA);
             driveConfig.Feedback.SensorToMechanismRatio = Drive.GEAR_RATIO;
             driveConfig.TorqueCurrent.PeakForwardTorqueCurrent = Drive.driveCurrentLimit;
             driveConfig.TorqueCurrent.PeakReverseTorqueCurrent = -Drive.driveCurrentLimit;

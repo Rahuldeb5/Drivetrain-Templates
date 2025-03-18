@@ -5,6 +5,8 @@
 package frc.robot;
 
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.util.Units;
 
 /**
@@ -28,19 +30,28 @@ public final class Constants {
 
     int GYRO_ID = 9;
 
-    double MAX_SPEED = 1.0;
-    double MAX_ROTATION = Math.PI / 2;
+    double MAX_SPEED = 3.0;
+    double MAX_ROTATION = Math.PI;
 
-    double CONTROLLER_DEADBAND = 0.05;
+    SwerveDriveKinematics kinematics = new SwerveDriveKinematics(
+      new Translation2d[] {
+        new Translation2d(WIDTH / 2, LENGTH / 2),
+        new Translation2d(WIDTH / 2, -LENGTH / 2),
+        new Translation2d(-WIDTH / 2, LENGTH / 2),
+        new Translation2d(-WIDTH / 2, -LENGTH / 2)
+      }
+    );
 
     public interface Drive {
       double kP = 0;
       double kI = 0;
       double kD = 0;
 
-      double GEAR_RATIO = 5.36;
+      double kS = 0;
+      double kV = 0;
+      double kA = 0;
 
-      double feedforward = 1.0 / (5676.0 / 60.0);
+      double GEAR_RATIO = 5.36;
 
       double driveCurrentLimit = 40.0;
     }
@@ -85,6 +96,14 @@ public final class Constants {
 
     public interface AutoConstants {
       double kMaxSpeed = 1.0;
+      double kMaxAcceleration = 1.0;
+
+      double kPX = 0;
+      double kPY = 0;
+      double kPTheta = 0;
+
+      double kMaxAngularSpeed = Math.PI / 2;
+      double kMaxAngularAcceleration = Math.PI / 2;
     }
   }
 }
