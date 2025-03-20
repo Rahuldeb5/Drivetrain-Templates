@@ -10,7 +10,10 @@ public class Mobility extends SequentialCommandGroup {
     public Mobility() {
         addCommands(
             new WaitCommand(1),
-            new SwerveDriveForward(Constants.Swerve.AutoConstants.kMaxSpeed).withTimeout(3)
+            new SwerveDriveForward(Constants.Swerve.AutoConstants.kMaxSpeed).withTimeout(2),
+            new SwerveDriveForward(0).withTimeout(1),
+            new WaitCommand(1),
+            new SwerveDriveForward(-Constants.Swerve.AutoConstants.kMaxSpeed).withTimeout(2)
         );
     }
     

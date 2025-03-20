@@ -30,8 +30,8 @@ public final class Constants {
 
     int GYRO_ID = 9;
 
-    double MAX_SPEED = 3.0;
-    double MAX_ROTATION = Math.PI;
+    double MAX_SPEED = .5;
+    double MAX_ROTATION = Math.PI / 2;
 
     SwerveDriveKinematics kinematics = new SwerveDriveKinematics(
       new Translation2d[] {
@@ -47,9 +47,9 @@ public final class Constants {
       double kI = 0;
       double kD = 0;
 
-      double kS = 0;
-      double kV = 0;
-      double kA = 0;
+      double kS = .3;
+      double kV = 2.4;
+      double kA = 0.07;
 
       double GEAR_RATIO = 5.36;
 
@@ -57,9 +57,9 @@ public final class Constants {
     }
 
     public interface Turn {
-      double kP = 0;
+      double kP = 3;
       double kI = 0;
-      double kD = 0;
+      double kD = 0.04;
     }
 
     public interface FrontLeft {
@@ -95,15 +95,15 @@ public final class Constants {
     }
 
     public interface AutoConstants {
-      double kMaxSpeed = 1.0;
+      double kMaxSpeed = .5;
       double kMaxAcceleration = 1.0;
 
-      double kPX = 0;
-      double kPY = 0;
-      double kPTheta = 0;
+      double kPX = .5;
+      double kPY = .5;
+      double kPTheta = .5;
 
-      double kMaxAngularSpeed = Math.PI / 2;
-      double kMaxAngularAcceleration = Math.PI / 2;
+      double kMaxAngularSpeed = .1;
+      double kMaxAngularAcceleration = .1;
     }
   }
 }

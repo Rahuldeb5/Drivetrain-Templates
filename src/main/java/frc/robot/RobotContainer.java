@@ -75,35 +75,35 @@ public class RobotContainer {
   // Use trajectories for more complicated paths
 
   public Command getAutonomousCommand() {
-    // An example command will be run in autonomous
-    // return Autos.exampleAuto(m_exampleSubsystem);  
+    // // An example command will be run in autonomous
+    // // return Autos.exampleAuto(m_exampleSubsystem);  
 
-    TrajectoryConfig config = new TrajectoryConfig(AutoConstants.kMaxSpeed, AutoConstants.kMaxAcceleration)
-        .setKinematics(Constants.Swerve.kinematics);
+    // TrajectoryConfig config = new TrajectoryConfig(AutoConstants.kMaxSpeed, AutoConstants.kMaxAcceleration)
+    //     .setKinematics(Constants.Swerve.kinematics);
 
-    Trajectory exampleTrajectory = TrajectoryGenerator.generateTrajectory(
-        new Pose2d(0, 0, new Rotation2d(0)),
-        List.of(new Translation2d(3, 0)),
-        new Pose2d(3, 0, new Rotation2d(0)),
-        config);
+    // Trajectory exampleTrajectory = TrajectoryGenerator.generateTrajectory(
+    //     new Pose2d(0, 0, new Rotation2d(0)),
+    //     List.of(new Translation2d(3, 0), new Translation2d(-3, 0)),
+    //     new Pose2d(0, 0, new Rotation2d(0)),
+    //     config);
 
-    ProfiledPIDController thetaController = new ProfiledPIDController(AutoConstants.kPTheta, 0, 0, new TrapezoidProfile.Constraints(AutoConstants.kMaxAngularSpeed, AutoConstants.kMaxAngularAcceleration));
-    thetaController.enableContinuousInput(-Math.PI, Math.PI);
+    // ProfiledPIDController thetaController = new ProfiledPIDController(AutoConstants.kPTheta, 0, 0, new TrapezoidProfile.Constraints(AutoConstants.kMaxAngularSpeed, AutoConstants.kMaxAngularAcceleration));
+    // thetaController.enableContinuousInput(-Math.PI, Math.PI);
 
-    SwerveControllerCommand swerveControllerCommand = new SwerveControllerCommand(
-        exampleTrajectory,
-        swerve::getPose,
-        Constants.Swerve.kinematics,
-        new PIDController(AutoConstants.kPX, 0, 0),
-        new PIDController(AutoConstants.kPY, 0, 0),
-        thetaController,
-        swerve::setDesiredStates,
-        swerve);
+    // SwerveControllerCommand swerveControllerCommand = new SwerveControllerCommand(
+    //     exampleTrajectory,
+    //     swerve::getPose,
+    //     Constants.Swerve.kinematics,
+    //     new PIDController(AutoConstants.kPX, 0, 0),
+    //     new PIDController(AutoConstants.kPY, 0, 0),
+    //     thetaController,
+    //     swerve::setDesiredStates,
+    //     swerve);
 
-    swerve.resetOdometry(exampleTrajectory.getInitialPose());
+    // swerve.resetOdometry(exampleTrajectory.getInitialPose());
 
-    return swerveControllerCommand.andThen(() -> swerve.drive(new Translation2d(0, 0), 0));
+    // return swerveControllerCommand.andThen(() -> swerve.drive(new Translation2d(0, 0), 0));
     
-    // return new Mobility();
+    return new Mobility();
   }
 }

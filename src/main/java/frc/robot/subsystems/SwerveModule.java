@@ -73,10 +73,10 @@ public class SwerveModule {
         desiredState.optimize(getAngle());
         desiredState.cosineScale(getAngle());
 
-        // if(desiredState.speedMetersPerSecond < 0.05) {
-        //     driveMotor.setControl(new VelocityVoltage(0));
-        //     turnMotor.setVoltage(0);
-        // }
+        if(desiredState.speedMetersPerSecond < 0.05) {
+            driveMotor.setControl(new VelocityVoltage(0));
+            turnMotor.setVoltage(0);
+        }
         
         driveMotor.setControl(new VelocityVoltage(desiredState.speedMetersPerSecond).withEnableFOC(true));
         turnMotor.setVoltage(turnController.calculate(getAngle().getRadians(), desiredState.angle.getRadians()));

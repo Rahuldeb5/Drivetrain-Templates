@@ -10,6 +10,7 @@ import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.Swerve;
 
@@ -35,6 +36,8 @@ public class SwerveDrive extends SubsystemBase {
 
     private final SwerveDriveOdometry odometry;
 
+    private SwerveModuleState[] currentStates;
+
     private final Pigeon2 gyro;
 
     public SwerveDrive(SwerveModule... modules) {
@@ -51,6 +54,8 @@ public class SwerveDrive extends SubsystemBase {
                 modules[2].getModulePosition(),
                 modules[3].getModulePosition()
             });
+
+        currentStates = new SwerveModuleState[] {};
     }
 
     public void drive(Translation2d velocity, double rot) {
@@ -60,6 +65,8 @@ public class SwerveDrive extends SubsystemBase {
         SwerveModuleState[] states = Swerve.kinematics.toSwerveModuleStates(speeds);
 
         SwerveDriveKinematics.desaturateWheelSpeeds(states, Swerve.MAX_SPEED);
+
+        currentStates = states;
 
         setDesiredStates(states);
     }
@@ -72,6 +79,7 @@ public class SwerveDrive extends SubsystemBase {
             new SwerveModuleState(0, Rotation2d.fromDegrees(45)),
         };
 
+        currentStates = states;
         setDesiredStates(states);
     }
 
@@ -107,6 +115,11 @@ public class SwerveDrive extends SubsystemBase {
                 modules[2].getModulePosition(),
                 modules[3].getModulePosition()
             });
+
+        // for(int i=0; i<4; i++) {
+        //     if(modules != null) SmartDashboard.putNumber("Module " + i + " angle", modules[i].getAngle().getRotations());
+        //     if(currentStates != null) SmartDashboard.putNumber("State angle " + i, currentStates[i].angle.getRotations());
+        // }
     }
 
 }

@@ -3,8 +3,10 @@ package frc.robot;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 import com.revrobotics.spark.config.SparkMaxConfig;
+import com.revrobotics.spark.config.ClosedLoopConfig.FeedbackSensor;
 
 import frc.robot.Constants.Swerve.Drive;
+import frc.robot.Constants.Swerve.Turn;
 
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 
@@ -15,10 +17,16 @@ public final class Configs {
         static {
             turnConfig
                 .idleMode(IdleMode.kBrake)
-                .smartCurrentLimit(20);
-                // .smartCurrentLimit(200)
-                // .inverted(true)
-                // .openLoopRampRate(0.25)
+                .smartCurrentLimit(20)
+                // .smartCurrentLimit(20)
+                .inverted(true)
+                .openLoopRampRate(0.2);
+            // turnConfig.closedLoop
+            //     .feedbackSensor(FeedbackSensor.kAbsoluteEncoder)
+            //     .pid(Turn.kP, Turn.kI, Turn.kD)
+            //     .outputRange(-1, 1)
+            //     .positionWrappingEnabled(true)
+            //     .positionWrappingInputRange(0, Math.PI);
         }
     }
 
